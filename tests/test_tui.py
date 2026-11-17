@@ -177,6 +177,20 @@ async def test_filter_narrows_board_and_swallows_shortcut_keys(seeded):
     assert len(column(seeded, "Backlog")) == 3
 
 
+async def test_filter_with_several_tags_and_text(svc):
+    svc.add_card("foo both", tags=["a", "b"])
+    svc.add_card("foo a", tags=["a"])
+    svc.add_card("bar both", tags=["a", "b"])
+    app = ClioApp(svc)
+    async with app.run_test(size=(140, 40)) as pilot:
+        await pilot.press("slash", *keys("foo #a #b"), "enter")
+        await pilot.pause()
+        assert shown(app) == ["foo both"]
+        await pilot.press("slash", *(["backspace"] * 9), *keys("#b #a"), "enter")
+        await pilot.pause()
+        assert shown(app) == ["bar both", "foo both"]
+
+
 async def test_reorder_under_filter_swaps_with_visible_neighbour(svc):
     for title in ("x1", "y", "x2", "x3"):
         svc.add_card(title)

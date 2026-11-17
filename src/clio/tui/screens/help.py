@@ -21,7 +21,7 @@ KEYS = [
     ("x", "archive (hide; `clio unarchive ID` brings it back)"),
     ("d", "delete"),
     ("Board", ""),
-    ("/", "filter by text and/or #tag  (esc clears)"),
+    ("/", "filter by text and/or #tags  (esc clears)"),
     ("b", "switch or create boards"),
     ("c", "manage columns"),
     ("r", "reload from disk"),

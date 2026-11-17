@@ -100,8 +100,8 @@ class BoardScreen(Screen[None]):
     def _filter_args(self) -> dict:
         words = self.filter.split()
         tags = [w for w in words if w.startswith("#") and len(w) > 1]
-        text = " ".join(w for w in words if w not in tags[:1])
-        return {"tag": tags[0] if tags else None, "text": text or None}
+        text = " ".join(w for w in words if w not in tags)
+        return {"tags": tags, "text": text or None}
 
     async def reload(self, select: int | None = None) -> None:
         """Re-read the board and rebuild it; optionally select the card with id `select`."""

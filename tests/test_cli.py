@@ -77,6 +77,8 @@ def test_ls_renders_board_and_filters(run):
         assert expected in out
     assert board(run, "--tag", "bug")["Backlog"] == ["alpha"]
     assert board(run, "-s", "BET")["Backlog"] == ["beta"]
+    run("add", "gamma", "-t", "bug", "-t", "ui")
+    assert board(run, "--tag", "bug", "-t", "ui")["Backlog"] == ["gamma"]
 
 
 def test_edit_and_tags(run):

@@ -137,17 +137,17 @@ class KanbanService:
         board: str | int | None = None,
         *,
         include_archived: bool = False,
-        tag: str | None = None,
+        tags: Iterable[str] = (),
         priority: Priority | None = None,
         text: str | None = None,
     ) -> BoardView:
-        """A board with its columns and cards, optionally filtered."""
+        """A board with its columns and cards. Filters combine; a card must carry every tag."""
         b = self.get_board(board)
-        tag = normalize_tag(tag) if tag else None
+        wanted = {normalize_tag(t) for t in tags}
         needle = text.strip().lower() if text else ""
 
         def keep(card: Card) -> bool:
-            if tag and all(t.name != tag for t in card.tags):
+            if not wanted <= {t.name for t in card.tags}:
                 return False
             if priority is not None and card.priority != priority:
                 return False

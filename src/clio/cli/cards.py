@@ -63,7 +63,10 @@ def add(
 
 def ls(
     board: BoardOpt = None,
-    tag: Annotated[str | None, typer.Option("--tag", help="Only cards with this tag.")] = None,
+    tag: Annotated[
+        list[str] | None,
+        typer.Option("-t", "--tag", help="Only cards with this tag. Repeat to require several."),
+    ] = None,
     priority: PriorityOpt = None,
     search: Annotated[
         str | None, typer.Option("-s", "--search", help="Text in title or description.")
@@ -73,7 +76,11 @@ def ls(
 ) -> None:
     """Show a board."""
     view = svc().board_view(
-        board, include_archived=all_, tag=tag, priority=_priority(priority), text=search
+        board,
+        include_archived=all_,
+        tags=tag or [],
+        priority=_priority(priority),
+        text=search,
     )
     if as_json:
         render.print_json(render.board_json(view))

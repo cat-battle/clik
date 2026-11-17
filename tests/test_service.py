@@ -247,11 +247,21 @@ def test_board_view_filters(svc):
     svc.add_card("fix login", tags=["bug"], priority=Priority.HIGH)
     svc.add_card("write docs", description="for the LOGIN flow")
     svc.add_card("refactor", tags=["bug"])
-    assert titles(svc, "Backlog", tag="#bug") == ["fix login", "refactor"]
+    assert titles(svc, "Backlog", tags=["#bug"]) == ["fix login", "refactor"]
     assert titles(svc, "Backlog", priority=Priority.HIGH) == ["fix login"]
     assert titles(svc, "Backlog", text="login") == ["fix login", "write docs"]
-    assert titles(svc, "Backlog", text="login", tag="bug") == ["fix login"]
-    assert svc.board_view(tag="bug").columns[0].active_count == 3
+    assert titles(svc, "Backlog", text="login", tags=["bug"]) == ["fix login"]
+    assert svc.board_view(tags=["bug"]).columns[0].active_count == 3
+
+
+def test_filtering_by_several_tags_requires_all_of_them(svc):
+    svc.add_card("both", tags=["a", "b"])
+    svc.add_card("only a", tags=["a"])
+    svc.add_card("only b", tags=["b"])
+    assert titles(svc, "Backlog", tags=["a", "b"]) == ["both"]
+    assert titles(svc, "Backlog", tags=["B", "#a", "a"]) == ["both"]
+    assert titles(svc, "Backlog", tags=["a", "missing"]) == []
+    assert titles(svc, "Backlog", tags=[]) == ["both", "only a", "only b"]
 
 
 def test_checklist_operations(svc):

@@ -37,7 +37,7 @@ Run `clio` with no arguments.
 | `t` | Edit tags |
 | `x` | Archive (hide without deleting) |
 | `d` | Delete (asks first) |
-| `/` | Filter by text and/or `#tag`; `esc` clears |
+| `/` | Filter by text and/or `#tags` (a card must have all of them); `esc` clears |
 | `b` | Switch or create boards |
 | `c` | Manage columns: add, rename, reorder, WIP limit, done column, delete |
 | `r` | Reload from disk |
@@ -53,7 +53,7 @@ command palette, where you can switch color themes.
 ```sh
 clio add "Fix login bug" -p high -t bug -t auth -d "Cookie expires early"
 clio add "Write docs" -c todo --top
-clio ls                         # the board; --tag, -p, -s/--search, --all, --json
+clio ls                         # the board; -t/--tag (repeatable), -p, -s/--search, --all, --json
 clio show 1                     # one card in full; --json
 clio mv 1 doing                 # --top to put it first
 clio done 1                     # move to the board's done column
