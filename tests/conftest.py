@@ -1,11 +1,11 @@
 import pytest
 
-from clio.service import KanbanService
+from clik.service import KanbanService
 
 
 @pytest.fixture
 def db_path(tmp_path):
-    return tmp_path / "clio.db"
+    return tmp_path / "clik.db"
 
 
 @pytest.fixture

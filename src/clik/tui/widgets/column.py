@@ -3,9 +3,9 @@ from textual.app import ComposeResult
 from textual.containers import Vertical, VerticalScroll
 from textual.widgets import Static
 
-from clio.models import ColumnView
-from clio.theme import DIM, WARN
-from clio.tui.widgets.card import CardWidget
+from clik.models import ColumnView
+from clik.theme import DIM, WARN
+from clik.tui.widgets.card import CardWidget
 
 
 class ColumnWidget(Vertical):

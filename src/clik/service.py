@@ -1,7 +1,7 @@
 """KanbanService: the only API the CLI and TUI use.
 
-Everything in and out is a plain value from clio.models, and failures the user
-can act on are raised as ClioError subclasses. Keeping to that is what lets a
+Everything in and out is a plain value from clik.models, and failures the user
+can act on are raised as ClikError subclasses. Keeping to that is what lets a
 remote implementation with the same methods replace this one later.
 """
 
@@ -12,9 +12,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import TypeVar
 
-from clio.db.connection import connect, transaction
-from clio.db.repo import Repo
-from clio.models import (
+from clik.db.connection import connect, transaction
+from clik.db.repo import Repo
+from clik.models import (
     Board,
     BoardView,
     Card,

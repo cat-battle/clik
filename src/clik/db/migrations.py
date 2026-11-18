@@ -6,7 +6,7 @@ released entry; append a new one.
 
 import sqlite3
 
-from clio.models import ClioError
+from clik.models import ClikError
 
 MIGRATIONS: list[str] = [
     """
@@ -66,9 +66,9 @@ def migrate(conn: sqlite3.Connection, migrations: list[str] | None = None) -> No
     migrations = MIGRATIONS if migrations is None else migrations
     version = conn.execute("PRAGMA user_version").fetchone()[0]
     if version > len(migrations):
-        raise ClioError(
-            f"database is at schema version {version}, but this clio only knows "
-            f"version {len(migrations)}; upgrade clio"
+        raise ClikError(
+            f"database is at schema version {version}, but this clik only knows "
+            f"version {len(migrations)}; upgrade clik"
         )
     for target in range(version + 1, len(migrations) + 1):
         try:

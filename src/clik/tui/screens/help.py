@@ -18,7 +18,7 @@ KEYS = [
     ("enter / e", "open the card: title, description, priority, tags, checklist"),
     ("p", "cycle priority"),
     ("t", "edit tags"),
-    ("x", "archive (hide; `clio unarchive ID` brings it back)"),
+    ("x", "archive (hide; `clik unarchive ID` brings it back)"),
     ("d", "delete"),
     ("Board", ""),
     ("/", "filter by text and/or #tags  (esc clears)"),
@@ -39,7 +39,7 @@ class HelpScreen(ModalScreen[None]):
             else:
                 table.add_row(Text(f"\n{keys}", style="bold underline"), "")
         with Vertical(classes="dialog"):
-            yield Label("clio keys", classes="dialog-title")
+            yield Label("clik keys", classes="dialog-title")
             yield Static(table)
             yield Label("press any key to close", classes="hint")
 

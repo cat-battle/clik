@@ -8,17 +8,17 @@ from textual.containers import Horizontal
 from textual.screen import Screen
 from textual.widgets import Footer, Input, Static
 
-from clio.models import BoardView, Card, ClioError, ColumnView, Priority
-from clio.service import KanbanService
-from clio.theme import DIM
-from clio.tui.screens.board_picker import BoardPickerScreen
-from clio.tui.screens.card_edit import CardDraft, CardEditScreen, split_tags
-from clio.tui.screens.columns import ColumnsScreen
-from clio.tui.screens.confirm import ConfirmScreen
-from clio.tui.screens.help import HelpScreen
-from clio.tui.screens.prompt import PromptScreen
-from clio.tui.widgets.card import CardWidget
-from clio.tui.widgets.column import ColumnWidget
+from clik.models import BoardView, Card, ClikError, ColumnView, Priority
+from clik.service import KanbanService
+from clik.theme import DIM
+from clik.tui.screens.board_picker import BoardPickerScreen
+from clik.tui.screens.card_edit import CardDraft, CardEditScreen, split_tags
+from clik.tui.screens.columns import ColumnsScreen
+from clik.tui.screens.confirm import ConfirmScreen
+from clik.tui.screens.help import HelpScreen
+from clik.tui.screens.prompt import PromptScreen
+from clik.tui.widgets.card import CardWidget
+from clik.tui.widgets.column import ColumnWidget
 
 T = TypeVar("T")
 
@@ -93,7 +93,7 @@ class BoardScreen(Screen[None]):
         """Run a service call; show a failure instead of crashing."""
         try:
             return call()
-        except ClioError as exc:
+        except ClikError as exc:
             self.notify(str(exc), severity="error")
             return None
 
@@ -122,7 +122,7 @@ class BoardScreen(Screen[None]):
         await board.mount(*(ColumnWidget(cv) for cv in view.columns))
         self._widgets = {w.card.id: w for w in self.query(CardWidget)}
 
-        bar = Text(" clio ", style="bold reverse")
+        bar = Text(" clik ", style="bold reverse")
         bar.append(f"  {view.board.name}", style="bold")
         if self.filter:
             bar.append(f"   filter: {self.filter}", style=DIM)
@@ -268,7 +268,7 @@ class BoardScreen(Screen[None]):
     async def action_archive(self) -> None:
         card = self.current_card
         if card is not None and self._try(lambda: self.service.archive_card(card.id)):
-            self.notify(f"Archived #{card.id}. Restore with: clio unarchive {card.id}")
+            self.notify(f"Archived #{card.id}. Restore with: clik unarchive {card.id}")
             await self.reload()
 
     def action_delete(self) -> None:

@@ -5,9 +5,9 @@ from textual.screen import ModalScreen
 from textual.widgets import Label, OptionList
 from textual.widgets.option_list import Option
 
-from clio.models import ClioError
-from clio.service import KanbanService
-from clio.tui.screens.prompt import PromptScreen
+from clik.models import ClikError
+from clik.service import KanbanService
+from clik.tui.screens.prompt import PromptScreen
 
 
 class BoardPickerScreen(ModalScreen[int | None]):
@@ -46,7 +46,7 @@ class BoardPickerScreen(ModalScreen[int | None]):
                 return
             try:
                 self.dismiss(self.service.create_board(name).id)
-            except ClioError as exc:
+            except ClikError as exc:
                 self.notify(str(exc), severity="error")
 
         self.app.push_screen(PromptScreen("Name of the new board"), create)

@@ -1,12 +1,12 @@
 from textual.app import App
 
-from clio.service import KanbanService
-from clio.tui.screens.board import BoardScreen
+from clik.service import KanbanService
+from clik.tui.screens.board import BoardScreen
 
 
-class ClioApp(App[None]):
-    CSS_PATH = "clio.tcss"
-    TITLE = "clio"
+class ClikApp(App[None]):
+    CSS_PATH = "clik.tcss"
+    TITLE = "clik"
 
     def __init__(self, service: KanbanService) -> None:
         super().__init__()

@@ -4,7 +4,7 @@ from zlib import crc32
 
 from rich.text import Text
 
-from clio.models import COLOR_NAMES, Card, Priority, Tag
+from clik.models import COLOR_NAMES, Card, Priority, Tag
 
 PRIORITY_COLORS = {
     Priority.NONE: "#6c7086",

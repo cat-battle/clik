@@ -2,12 +2,12 @@ from rich.text import Text
 from textual.message import Message
 from textual.widgets import Static
 
-from clio.models import Card
-from clio.theme import DIM, checklist_progress, tag_chips
+from clik.models import Card
+from clik.theme import DIM, checklist_progress, tag_chips
 
 
 class CardWidget(Static):
-    """One card on the board. Priority shows as the left border color (see clio.tcss)."""
+    """One card on the board. Priority shows as the left border color (see clik.tcss)."""
 
     class Clicked(Message):
         def __init__(self, card_id: int) -> None:

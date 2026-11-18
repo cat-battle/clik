@@ -1,7 +1,7 @@
 import pytest
 
-from clio.models import NotFound, Priority, ValidationError
-from clio.service import KanbanService
+from clik.models import NotFound, Priority, ValidationError
+from clik.service import KanbanService
 
 
 def titles(svc, column, **kw):

@@ -7,15 +7,15 @@ from dataclasses import dataclass
 from enum import IntEnum
 
 
-class ClioError(Exception):
+class ClikError(Exception):
     """Base class for errors the UIs should show to the user."""
 
 
-class NotFound(ClioError):
+class NotFound(ClikError):
     pass
 
 
-class ValidationError(ClioError):
+class ValidationError(ClikError):
     pass
 
 

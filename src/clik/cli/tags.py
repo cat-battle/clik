@@ -3,9 +3,9 @@ from typing import Annotated
 import typer
 from rich.table import Table
 
-from clio.cli import render
-from clio.cli.context import svc
-from clio.theme import DIM, tag_chips
+from clik.cli import render
+from clik.cli.context import svc
+from clik.theme import DIM, tag_chips
 
 app = typer.Typer(help="Manage tags.", no_args_is_help=True)
 

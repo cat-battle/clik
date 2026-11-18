@@ -1,6 +1,6 @@
-# clio
+# clik
 
-CLI Organizer for Tasks: a kanban board that lives in your terminal. A full-screen board for
+CLI Kanban: a kanban board that lives in your terminal. A full-screen board for
 working, and one-shot commands for quick capture and scripting. Both read and write the same
 local SQLite file.
 
@@ -23,7 +23,7 @@ python -m venv .venv
 
 ## The board
 
-Run `clio` with no arguments.
+Run `clik` with no arguments.
 
 | Keys | Action |
 |---|---|
@@ -51,47 +51,47 @@ command palette, where you can switch color themes.
 ## Commands
 
 ```sh
-clio add "Fix login bug" -p high -t bug -t auth -d "Cookie expires early"
-clio add "Write docs" -c todo --top
-clio ls                         # the board; -t/--tag (repeatable), -p, -s/--search, --all, --json
-clio show 1                     # one card in full; --json
-clio mv 1 doing                 # --top to put it first
-clio done 1                     # move to the board's done column
-clio edit 1 --title "..." -p urgent --add-tag ui --rm-tag bug
-clio archive 1 / clio unarchive 1
-clio rm 1                       # asks; -y to skip
+clik add "Fix login bug" -p high -t bug -t auth -d "Cookie expires early"
+clik add "Write docs" -c todo --top
+clik ls                         # the board; -t/--tag (repeatable), -p, -s/--search, --all, --json
+clik show 1                     # one card in full; --json
+clik mv 1 doing                 # --top to put it first
+clik done 1                     # move to the board's done column
+clik edit 1 --title "..." -p urgent --add-tag ui --rm-tag bug
+clik archive 1 / clik unarchive 1
+clik rm 1                       # asks; -y to skip
 
-clio check add 1 "write a repro"
-clio check toggle 1 1
-clio check rm 1 1
+clik check add 1 "write a repro"
+clik check toggle 1 1
+clik check rm 1 1
 
-clio board ls | new NAME [-c COL ...] [--use] | use NAME | rename OLD NEW | rm NAME
-clio column ls | add NAME [--after COL] | rename OLD NEW | mv COL POSITION
-clio column rm COL [--move-to COL] | wip COL N | done COL
-clio tag ls | color NAME COLOR | rm NAME
+clik board ls | new NAME [-c COL ...] [--use] | use NAME | rename OLD NEW | rm NAME
+clik column ls | add NAME [--after COL] | rename OLD NEW | mv COL POSITION
+clik column rm COL [--move-to COL] | wip COL N | done COL
+clik tag ls | color NAME COLOR | rm NAME
 ```
 
-Boards and columns can be named by any unambiguous prefix, ignoring case (`clio mv 3 doi`).
+Boards and columns can be named by any unambiguous prefix, ignoring case (`clik mv 3 doi`).
 Cards are named by their number. Card commands act on the current board unless given
 `-b BOARD`; moving a card always stays within the card's own board.
 
-`clio -h` and `clio COMMAND -h` list every option.
+`clik -h` and `clik COMMAND -h` list every option.
 
 ## Where the data lives
 
 One SQLite file, chosen in this order:
 
 1. `--db PATH`
-2. the `CLIO_DB` environment variable
-3. `~/.local/share/clio/clio.db` on Linux, `%LOCALAPPDATA%\clio\clio.db` on Windows,
-   `~/Library/Application Support/clio/clio.db` on macOS
+2. the `CLIK_DB` environment variable
+3. `~/.local/share/clik/clik.db` on Linux, `%LOCALAPPDATA%\clik\clik.db` on Windows,
+   `~/Library/Application Support/clik/clik.db` on macOS
 
-Back it up by copying the file while clio is not running.
+Back it up by copying the file while clik is not running.
 
 ## Layout of the code
 
 ```
-src/clio/
+src/clik/
   models.py     plain data types and errors
   db/           SQLite: connection, migrations, and all SQL (repo.py)
   service.py    KanbanService, the only API the UIs call

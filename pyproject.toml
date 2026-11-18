@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "clio"
+name = "clik"
 version = "0.1.0"
-description = "CLI Organizer for Tasks: a terminal kanban with a CLI and a TUI"
+description = "CLI Kanban: a terminal kanban with a CLI and a TUI"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -19,10 +19,10 @@ dependencies = [
 dev = ["pytest>=8", "pytest-asyncio>=0.23", "ruff>=0.5"]
 
 [project.scripts]
-clio = "clio.cli.app:main"
+clik = "clik.cli.app:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/clio"]
+packages = ["src/clik"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

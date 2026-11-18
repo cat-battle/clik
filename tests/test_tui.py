@@ -1,10 +1,10 @@
 import pytest
 
-from clio.models import Priority
-from clio.tui.app import ClioApp
-from clio.tui.screens.board import BoardScreen
-from clio.tui.widgets.card import CardWidget
-from clio.tui.widgets.column import ColumnWidget
+from clik.models import Priority
+from clik.tui.app import ClikApp
+from clik.tui.screens.board import BoardScreen
+from clik.tui.widgets.card import CardWidget
+from clik.tui.widgets.column import ColumnWidget
 
 
 def keys(text):
@@ -34,7 +34,7 @@ def seeded(svc):
 
 
 async def test_navigation_follows_keys(seeded):
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 40)) as pilot:
         assert isinstance(app.screen, BoardScreen)
         assert selected(app) == "a"
@@ -61,7 +61,7 @@ async def test_navigation_follows_keys(seeded):
 
 
 async def test_move_card_between_and_within_columns(seeded):
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("j", "L")
         assert column(seeded, "Backlog") == ["a", "c"]
@@ -79,7 +79,7 @@ async def test_move_card_between_and_within_columns(seeded):
 
 
 async def test_add_card_with_enter(seeded):
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("l", "a", *keys("new one"), "enter")
         await pilot.pause()
@@ -95,7 +95,7 @@ async def test_add_card_with_enter(seeded):
 async def test_edit_card_fields_and_checklist(seeded):
     card = seeded.board_view().columns[0].cards[0]
     seeded.set_checklist(card.id, [("old", False), ("gone", False)])
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 50)) as pilot:
         await pilot.press("e")
         await pilot.pause()
@@ -117,7 +117,7 @@ async def test_edit_card_fields_and_checklist(seeded):
 
 async def test_cancelled_edit_changes_nothing(seeded):
     before = seeded.board_view()
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("e")
         await pilot.pause()
@@ -127,7 +127,7 @@ async def test_cancelled_edit_changes_nothing(seeded):
 
 
 async def test_delete_needs_confirmation(seeded):
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("d", "n")
         await pilot.pause()
@@ -143,7 +143,7 @@ async def test_delete_needs_confirmation(seeded):
 
 async def test_priority_tags_and_archive_shortcuts(seeded):
     card = seeded.board_view().columns[0].cards[0]
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("p", "p")
         assert seeded.get_card(card.id).priority is Priority.MEDIUM
@@ -159,7 +159,7 @@ async def test_priority_tags_and_archive_shortcuts(seeded):
 
 async def test_filter_narrows_board_and_swallows_shortcut_keys(seeded):
     seeded.add_card("deploy", tags=["ops"])
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("slash", *keys("d"))
         await pilot.pause()
@@ -181,7 +181,7 @@ async def test_filter_with_several_tags_and_text(svc):
     svc.add_card("foo both", tags=["a", "b"])
     svc.add_card("foo a", tags=["a"])
     svc.add_card("bar both", tags=["a", "b"])
-    app = ClioApp(svc)
+    app = ClikApp(svc)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("slash", *keys("foo #a #b"), "enter")
         await pilot.pause()
@@ -194,7 +194,7 @@ async def test_filter_with_several_tags_and_text(svc):
 async def test_reorder_under_filter_swaps_with_visible_neighbour(svc):
     for title in ("x1", "y", "x2", "x3"):
         svc.add_card(title)
-    app = ClioApp(svc)
+    app = ClikApp(svc)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("slash", "x", "enter")
         await pilot.pause()
@@ -204,7 +204,7 @@ async def test_reorder_under_filter_swaps_with_visible_neighbour(svc):
 
 async def test_switch_and_create_boards(seeded):
     seeded.create_board("Other", columns=["Inbox"])
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("b")
         await pilot.pause()
@@ -224,7 +224,7 @@ async def test_switch_and_create_boards(seeded):
 
 
 async def test_manage_columns(seeded):
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("c")
         await pilot.pause()
@@ -257,7 +257,7 @@ async def test_manage_columns(seeded):
 
 
 async def test_service_errors_are_shown_not_raised(seeded):
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("t", *keys("ok"), "enter")
         await pilot.pause()
@@ -270,7 +270,7 @@ async def test_service_errors_are_shown_not_raised(seeded):
 
 
 async def test_help_and_quit(seeded):
-    app = ClioApp(seeded)
+    app = ClikApp(seeded)
     async with app.run_test(size=(140, 40)) as pilot:
         await pilot.press("question_mark")
         await pilot.pause()

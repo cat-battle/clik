@@ -2,8 +2,8 @@
 
 from pathlib import Path
 
-from clio import config
-from clio.service import KanbanService
+from clik import config
+from clik.service import KanbanService
 
 _db_override: Path | None = None
 _service: KanbanService | None = None

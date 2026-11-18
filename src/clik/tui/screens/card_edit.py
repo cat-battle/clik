@@ -8,8 +8,8 @@ from textual.screen import ModalScreen
 from textual.widgets import Input, Label, Select, SelectionList, TextArea
 from textual.widgets.selection_list import Selection
 
-from clio.models import Card, ClioError, Priority
-from clio.service import normalize_tag
+from clik.models import Card, ClikError, Priority
+from clik.service import normalize_tag
 
 
 def split_tags(text: str) -> list[str]:
@@ -105,7 +105,7 @@ class CardEditScreen(ModalScreen[CardDraft | None]):
             return
         try:
             tags = [normalize_tag(t) for t in split_tags(self.query_one("#tags", Input).value)]
-        except ClioError as exc:
+        except ClikError as exc:
             self.notify(str(exc), severity="error")
             return
         items = self.query_one("#checklist", SelectionList)

@@ -2,9 +2,9 @@ import sqlite3
 
 import pytest
 
-from clio.db.connection import connect
-from clio.db.migrations import MIGRATIONS, migrate
-from clio.models import ClioError
+from clik.db.connection import connect
+from clik.db.migrations import MIGRATIONS, migrate
+from clik.models import ClikError
 
 
 def version(conn):
@@ -12,7 +12,7 @@ def version(conn):
 
 
 def test_fresh_database_is_migrated_to_latest(tmp_path):
-    conn = connect(tmp_path / "nested" / "clio.db")
+    conn = connect(tmp_path / "nested" / "clik.db")
     assert version(conn) == len(MIGRATIONS)
     tables = {r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
     assert {"boards", "columns", "cards", "tags", "card_tags", "checklist_items", "meta"} <= tables
@@ -20,7 +20,7 @@ def test_fresh_database_is_migrated_to_latest(tmp_path):
 
 
 def test_reopening_keeps_data(tmp_path):
-    path = tmp_path / "clio.db"
+    path = tmp_path / "clik.db"
     conn = connect(path)
     conn.execute("INSERT INTO boards(name, created_at) VALUES ('b', 'now')")
     conn.close()
@@ -50,5 +50,5 @@ def test_failed_migration_rolls_back():
 def test_database_newer_than_code_is_refused():
     conn = sqlite3.connect(":memory:", isolation_level=None)
     conn.execute(f"PRAGMA user_version = {len(MIGRATIONS) + 1}")
-    with pytest.raises(ClioError, match="upgrade clio"):
+    with pytest.raises(ClikError, match="upgrade clik"):
         migrate(conn)

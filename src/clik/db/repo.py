@@ -6,7 +6,7 @@ import sqlite3
 from collections import defaultdict
 from typing import Any
 
-from clio.models import Board, Card, ChecklistItem, Column, Priority, Tag
+from clik.models import Board, Card, ChecklistItem, Column, Priority, Tag
 
 
 class Repo:

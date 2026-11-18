@@ -7,10 +7,10 @@ from textual.screen import ModalScreen
 from textual.widgets import Label, OptionList
 from textual.widgets.option_list import Option
 
-from clio.models import ClioError, ColumnView
-from clio.service import KanbanService
-from clio.theme import DIM, OK
-from clio.tui.screens.prompt import PromptScreen
+from clik.models import ClikError, ColumnView
+from clik.service import KanbanService
+from clik.theme import DIM, OK
+from clik.tui.screens.prompt import PromptScreen
 
 
 class ColumnsScreen(ModalScreen[None]):
@@ -68,7 +68,7 @@ class ColumnsScreen(ModalScreen[None]):
     def _run(self, change: Callable[[], object], highlight: int | None = None) -> None:
         try:
             change()
-        except ClioError as exc:
+        except ClikError as exc:
             self.notify(str(exc), severity="error")
         self._refresh(self._index if highlight is None else highlight)
 

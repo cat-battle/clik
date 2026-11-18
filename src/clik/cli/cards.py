@@ -4,9 +4,9 @@ from typing import Annotated
 
 import typer
 
-from clio.cli import render
-from clio.cli.context import svc
-from clio.models import Priority
+from clik.cli import render
+from clik.cli.context import svc
+from clik.models import Priority
 
 BoardOpt = Annotated[
     str | None, typer.Option("-b", "--board", help="Board name or prefix (default: current).")

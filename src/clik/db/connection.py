@@ -3,7 +3,7 @@ from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
 
-from clio.db.migrations import migrate
+from clik.db.migrations import migrate
 
 
 def connect(path: str | Path) -> sqlite3.Connection:

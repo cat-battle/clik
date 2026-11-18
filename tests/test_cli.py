@@ -2,14 +2,14 @@ import json
 
 import pytest
 
-from clio.cli.app import main
-from clio.service import KanbanService
+from clik.cli.app import main
+from clik.service import KanbanService
 
 
 @pytest.fixture
 def run(db_path, monkeypatch, capsys):
     """Run the real entry point; returns (exit_code, stdout, stderr)."""
-    monkeypatch.setenv("CLIO_DB", str(db_path))
+    monkeypatch.setenv("CLIK_DB", str(db_path))
     monkeypatch.setenv("NO_COLOR", "1")
     monkeypatch.setenv("COLUMNS", "120")
 
